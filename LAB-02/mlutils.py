@@ -102,11 +102,11 @@ def plot_silhouette(n_clusters, X):
 
 def plot_2d_clf_problem(X, y, h=None):
     '''
-    Plots a two-dimensional labeled dataset (X,y) and, if function h(x) is given,
+    Plots a two-dimensional labeled dataset (X,y) and, if function h(x) is given, 
     the decision surfaces.
     '''
     assert X.shape[1] == 2, "Dataset is not two-dimensional"
-    if h!=None :
+    if h!=None : 
         # Create a mesh to plot in
         r = 0.02  # mesh resolution
         x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
@@ -133,11 +133,11 @@ def plot_2d_clf_problem(X, y, h=None):
 
 def plot_2d_svc_problem(X, y, svc=None):
     '''
-    Plots a two-dimensional labeled dataset (X,y) and, if SVC object is given,
+    Plots a two-dimensional labeled dataset (X,y) and, if SVC object is given, 
     the decision surfaces (with margin as well).
     '''
     assert X.shape[1] == 2, "Dataset is not two-dimensional"
-    if svc!=None :
+    if svc!=None : 
         # Create a mesh to plot in
         r = 0.03  # mesh resolution
         x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
@@ -154,11 +154,11 @@ def plot_2d_svc_problem(X, y, svc=None):
     plt.scatter(X[:,0],X[:,1], c=y, cmap=plt.cm.Paired, marker='o', s=50)
     #plt.show()
 
-def svc_predict(svc, x) :
+def svc_predict(svc, x) : 
     h = svc.decision_function([x])
     if h >= -1 and h <= 1:
         return 0.5
-    else:
+    else: 
         return max(-1, min(1, h))
 
 def plot_error_surface(err, c_range=(0,5), g_range=(0,5)):
@@ -172,15 +172,15 @@ def plot_error_surface(err, c_range=(0,5), g_range=(0,5)):
     #plt.show()
 
 
-def knn_eval(n_instances=100, n_features=2, n_classes=2, n_informative=2,
+def knn_eval(n_instances=100, n_features=2, n_classes=2, n_informative=2, 
              test_size=0.3, k_range=(1, 20), n_trials=100):
-
+    
     train_errors = []
     test_errors = []
     ks = list(range(k_range[0], k_range[1] + 1))
 
     for i in range(0, n_trials):
-        X, y = make_classification(n_instances, n_features, n_classes=n_classes,
+        X, y = make_classification(n_instances, n_features, n_classes=n_classes, 
                                    n_informative=n_informative, n_redundant=0, n_clusters_per_class=1)
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size)
         train = []
@@ -192,9 +192,9 @@ def knn_eval(n_instances=100, n_features=2, n_classes=2, n_informative=2,
             test.append(1 - knn.score(X_test, y_test))
         train_errors.append(train)
         test_errors.append(test)
-
+        
     train_errors = np.mean(np.array(train_errors), axis=0)
     test_errors = np.mean(np.array(test_errors), axis=0)
     best_k = ks[np.argmin(test_errors)]
-
+    
     return ks, best_k, train_errors, test_errors
